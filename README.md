@@ -44,6 +44,8 @@ Functional Simulation:
 
 
 ## Fig 2: Invoke the Cadence Environment
+![Screenshot (60)](https://github.com/user-attachments/assets/88c8e4da-bb61-45aa-b173-e42328061011)
+
 
 
 ## Creating Source Code:
@@ -57,6 +59,32 @@ Functional Simulation:
 ### Verilog code for 4-Bit Up-Down Counter:
 
 */Program  for  4-Bit Up-Down Counter
+`timescale 1ns / 1ns
+module counter_test;
+reg clk,rst,m;
+wire [3:0] count;
+initial
+begin
+clk=0;
+rst=0;#5;
+rst=1;
+end
+initial
+begin
+m=1;
+#160 m=0;
+end
+
+counter counter1 (clk,m,rst, count);
+
+always #5 clk=~clk;
+ 
+initial $monitor("Time=%t rst=%b clk=%b count=%b" , $time,rst,clk,count);
+
+initial
+#320 $finish;
+
+endmodule
 
 	Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
@@ -67,6 +95,20 @@ Functional Simulation:
 ### Test-bench code for 4-Bit Up-Down Counter:
 
 */Test bench Program  for  4-Bit Up-Down Counter
+`timescale 1ns / 1 ns
+module counter(clk,m,rst,count);
+input clk,m,rst;
+output reg [3:0] count;
+always@(posedge clk or negedge rst)
+begin
+if (!rst)
+count=0;
+else if(m)
+count=count+1;
+else
+count=count-1;
+end
+endmodule
 
 ### To Launch Simulation tool
 	linux:/> nclaunch -new&            // “-new” option is used for invoking NCVERILOG for the first time for any design
@@ -76,12 +118,16 @@ Functional Simulation:
 It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple step
 
 ## Fig 3: Setting Multi-step simulation
+![Screenshot (65)](https://github.com/user-attachments/assets/8a43c824-241f-4b4b-8bb7-28ebb0c9e1fd)
+
 
 Select Multiple Step and then select “Create cds.lib File” as shown in below figure
 
 Click the cds.lib file and save the file by clicking on Save option
 
 ## Fig 4: cds.lib file Creation
+![Screenshot (59)](https://github.com/user-attachments/assets/44781a15-6e4a-436a-89f1-80d7788131a8)
+
 
 	Save cds.lib file and select the correct option for cds.lib file format based on the  HDL Language and Libraries used.
 
@@ -100,6 +146,8 @@ Click the cds.lib file and save the file by clicking on Save option
 	Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation
 
 ## Fig 6: Nclaunch Window
+![Screenshot (67)](https://github.com/user-attachments/assets/af714c74-9594-4efb-b13e-b98e61043801)
+
 
 To perform the function simulation, the following three steps are involved Compilation, Elaboration and Simulation.
 
@@ -124,6 +172,8 @@ i.e Cadence IES command for compile: ncverilog +access+rwc -compile fa.v
 Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation 
 
 ## Fig 7: Compiled database in worklib
+![Screenshot (74)](https://github.com/user-attachments/assets/c97d95e5-6f7d-4998-9217-62c44109b594)
+
 
 	After compilation it will come under worklib you can see in right side window
 
@@ -153,6 +203,8 @@ It contains statements that map logical library names to their physical director
 	After elaboration the file will come under snapshot. Select the test bench and simulate it. 
 
 ## Fig 8: Elaboration Launch Option
+![Screenshot (74)](https://github.com/user-attachments/assets/8b2ca432-74b1-4506-b453-ac41b3409cba)
+
 
 ### Step 3: Simulation: – Simulate with the given test vectors over a period of time to observe the output behaviour. 
 
@@ -165,10 +217,15 @@ It contains statements that map logical library names to their physical director
 	Steps for simulation – Run the simulation command with simulator options
 
 ## Fig 9: Design Browser window for simulation
+![Screenshot (74)](https://github.com/user-attachments/assets/be6d459a-2dca-4113-811a-49a5b4ae16bb)
+
 
 ## Fig 10: Simulation Waveform Window
+![Screenshot (75)](https://github.com/user-attachments/assets/170dffc8-19e9-404a-9485-2e8eaacda83c)
+
 
 ## Fig 11: Simulation Waveform Window
+![Screenshot (75)](https://github.com/user-attachments/assets/4b7c5e11-39d9-407d-bab0-a15455fa3a15)
 
 ### Result
 
